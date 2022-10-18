@@ -1,0 +1,100 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+
+struct node 
+{
+    int val;
+    node *next;   
+    node()
+    {
+        val=0;
+        next=nullptr;
+    }
+};
+
+node* push(node* head,int a)
+{
+  if(head==nullptr)
+  {
+      head=new node();
+      head->val=a;
+      head->next=nullptr;
+  }
+  else
+  {
+      node* ptr=head;
+      while(ptr->next!=nullptr)
+      {
+          ptr=ptr->next;
+      }
+      ptr->next=new node();
+     
+      ptr->next->val=a;
+      ptr->next->next=nullptr;
+  }
+  return head;
+
+}
+
+
+void print(node* head)
+{
+   if(head==nullptr) return;
+   else
+   {
+       node* ptr =head;
+       while(ptr!=nullptr)
+       {
+           cout<<ptr->val<<"->";
+           ptr=ptr->next;
+       }
+   }
+   cout<<endl;
+}
+node* dlt(node* head,int value)
+{
+    if(head==nullptr) return head;
+    
+    if(head->val==value)
+    {
+        node* temp=head;
+        head=head->next;
+        delete temp;
+    }
+    else
+    {
+        node* ptr=head;
+        while(ptr->next->val!=value)
+        {
+            ptr=ptr->next;
+        }
+        node* nodetobedlt=ptr->next;
+        ptr->next=ptr->next->next;
+        delete nodetobedlt;
+       
+    }
+    return head;
+}
+
+int main()
+{
+    node * head;
+    head=push(head,1);
+    head=push(head,2);
+    head=push(head,3);
+    head=push(head,4);
+    print(head);
+    head=dlt(head,1);
+    print(head);
+    
+    return 0;
+}
