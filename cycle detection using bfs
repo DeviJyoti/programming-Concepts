@@ -1,0 +1,43 @@
+void bfs(vector<vector<int>>&g,vector<int>&vis,int i,vector<int>&prev) 
+{
+// i is that node where we are now
+//prev is the previous node 
+    q.push(i);
+    vis[i]=1;
+    
+    while(!q.empty())
+    {
+        for(auto adj_node : g[i])
+        {
+            //adj-node is the adjacent node of that node
+            if(!vis[adj_node])
+            {
+                q.push(adj_node); 
+                
+                vis[adj_node]=1;
+                prev[adj_node]=i;
+            }
+          
+        }
+        int node=q.front();
+        q.pop();
+        cout<<node<<" ";
+    }
+    
+}
+
+void printbfs(vector<vector<int>>&g)
+{
+    int n=g.size();
+    vector<int>vis(n,0);
+    vector<int>prev(n,-1);
+    vis[0]=1;
+    for(int i=1;i<g.size();i++)
+    {
+        if(vis[i]==0)
+        {
+            bfs(g,vis,i,prev);
+        }
+    }
+    cout<<"\n";
+}
